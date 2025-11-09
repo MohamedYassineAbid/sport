@@ -1,6 +1,7 @@
 import { KPICard } from "@/components/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Target, TrendingUp, Users, AlertCircle, Calendar, Activity } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Trophy, Target, TrendingUp, Users, AlertCircle, Calendar, Activity, Download } from "lucide-react";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -104,20 +105,6 @@ const alertsData = [
     timestamp: "1d ago",
     status: "info"
   }
-];
-    status: "good",
-    details: "Good accuracy but missing scoring opportunities. Recommend one-on-one finishing drills"
-  },
-  { 
-    player: "Ryan Bennett #11", 
-    shots: 12, 
-    shotsOnTarget: 3, 
-    goals: 0,
-    accuracy: 25,
-    conversionRate: 0,
-    status: "critical",
-    details: "Critical decline in performance. Only 25% accuracy with zero goals. Possible injury or confidence issue - medical check recommended"
-  },
 ];
 
 const Dashboard = () => {
@@ -342,6 +329,17 @@ const Dashboard = () => {
                   }`}>
                     <p className="font-medium leading-relaxed">{alert.details}</p>
                   </div>
+                  {/* If this is a performance alert, offer the ONNX preprocessing/model file for download */}
+                  {alert.type === 'performance' && (
+                    <div className="pt-3">
+                      <a href="/models/player_prep_model.onnx" download className="inline-block">
+                        <Button variant="outline" size="sm">
+                          <Download className="mr-2 h-4 w-4" />
+                          Download model (ONNX)
+                        </Button>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
