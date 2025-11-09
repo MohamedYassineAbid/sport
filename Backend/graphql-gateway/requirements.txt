@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+graphene
+sqlalchemy
+pydantic
+requests
+python-dotenv
